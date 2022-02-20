@@ -1,20 +1,20 @@
 data = [
-    {'Nomor Telepon':6216343463,
+    {'Nomor Telepon':'6216343463',
     'Nama':'HYPERMART GAJAH MADA',
     'Alamat':'JL GAJAHMADA NO 19-26',
     'Kota':'JAKARTA PUSAT',    
     'Category':'DEPARTMENT STORE'},
-    {'Nomor Telepon':6287825086209,
+    {'Nomor Telepon':'6287825086209',
     'Nama':'DAPOER PANDAN WANGI',
     'Alamat':'JL PATUHA NO 38',
     'Kota':'BANDUNG',    
     'Category':'RESTAURANT'},
-    {'Nomor Telepon':622486001900,
+    {'Nomor Telepon':'622486001900',
     'Nama':'SILOAM HOSPITAL',
     'Alamat':'JL KOMPOL MAKSUM NO 296',
     'Kota':'SEMARANG',
     'Category':'HOSPITAL'},
-    {'Nomor Telepon':12345678,
+    {'Nomor Telepon':'12345678',
     'Nama':'LEVI ACKERMAN',
     'Alamat':'MIZUBE NO SATO AOYAMA 4106',
     'Kota':'HITA',
@@ -29,7 +29,7 @@ def daftar_nomor ():
 
 def MenuTambah():
     a = [d['Nomor Telepon'] for d in data if 'Nomor Telepon' in d]
-    nomor_telepon = int(input('masukkan Nomor Telepon :'))
+    nomor_telepon = input('masukkan Nomor Telepon :')
     if  nomor_telepon in a:
         print('******DATA SUDAH TERDAFTAR******')
     elif nomor_telepon not in a:
@@ -42,13 +42,13 @@ def MenuTambah():
             if Yes_no == 'Y':
                 data.append({'Nomor Telepon': nomor_telepon,'Nama': Nama,'Alamat': Alamat,'Kota':Kota,'Category':Category})
                 print('******DATA TELAH DISIMPAN******')                
-                return MenuKedua()
+                break
             elif Yes_no == 'N':                
-                return MenuKedua()
+                break
 
 def MenuUbah():
     a = [d['Nomor Telepon'] for d in data if 'Nomor Telepon' in d]
-    nomor_telepon = int(input('masukkan Nomor Telepon :'))
+    nomor_telepon = input('masukkan Nomor Telepon :')
     if  nomor_telepon not in a:
         print('******DATA TIDAK TERDAFTAR******')
     elif nomor_telepon in a:
@@ -57,19 +57,24 @@ def MenuUbah():
         while True:
             Yes_no = input('apakah anda ingin mengubah data (Y/N):').capitalize()
             if Yes_no == 'Y':
-                key = input("pilih salah satu dari kolom Nama,Alamat,Kota,Category yang akan diupdate:").capitalize()
-                val = input('input {} baru:'.format(key))
+                key = input("pilih salah satu dari kolom Nomor Telepon,Nama,Alamat,Kota,Category yang akan diupdate:").title()
+                if key not in b:
+                    print('******TULIS SESUAI DENGAN KOLOM******')
+                    break 
+                val = input('input {} baru:'.format(key))                
                 while True:
                     Yes_no = input('apakah anda ingin menyimpan (Y/N):').capitalize()
                     if Yes_no == 'Y':
                         b[key]=val
                         print('******DATA TELAH DISIMPAN******')                                                                           
-                        return MenuKetiga()
+                        return
+                    
                     elif Yes_no == 'N':
                         print('******DATA TIDAK DISIMPAN******')                
-                        return MenuKetiga()                  
+                        return
+                                   
             elif Yes_no == 'N':                
-                return MenuKetiga()
+                break
             
 
 def MenuPertama():
@@ -86,10 +91,10 @@ Masukkan angka dari list diatas :''')
             daftar_nomor ()
         elif inputMenu=='2':
             print('Masukkan Nomor Telepon:')
-            nomorTelepon = int(input())
+            nomorTelepon = input()
             print(next((nomor for nomor in data if nomor["Nomor Telepon"] == nomorTelepon), '\n******DATA TIDAK TERDAFTAR******'))                                                                                    
         elif inputMenu=='3':
-            return menuUtama()            
+            break           
 
 def MenuKedua():
     while (True):
@@ -103,7 +108,7 @@ Masukkan angka dari list diatas :''')
         if inputMenu =='1':
             MenuTambah()
         elif inputMenu =='2':
-            return menuUtama()
+            break
 
 def MenuKetiga():
     while (True):
@@ -117,7 +122,7 @@ Masukkan angka dari list diatas :''')
         if inputMenu =='1':
             MenuUbah()
         elif inputMenu =='2':
-            return menuUtama()
+            break
 
 def MenuKeempat():
     while (True):
@@ -129,10 +134,10 @@ def MenuKeempat():
 
 Masukkan angka dari list diatas :''')
         if inputMenu =='1':
-            a = [d['Nomor Telepon'] for d in data if 'Nomor Telepon' in d]
-            nomor_telepon = int(input('masukkan Nomor Telepon yang akan dihapus :'))
+            a = [d['Nomor Telepon'] for d in data if 'Nomor Telepon' in d]            
+            nomor_telepon = input('masukkan Nomor Telepon yang akan dihapus :')            
             if  nomor_telepon not in a:
-                print('\nData Tidak Terdaftar')
+                print('\n******DATA TIDAK ADA******')
             elif nomor_telepon in a:                                  
                 index = a.index(nomor_telepon)
                 while True:
@@ -140,12 +145,12 @@ Masukkan angka dari list diatas :''')
                     if Yes_no == 'Y':
                         del data[index]
                         print('******DATA DIHAPUS******')                        
-                        return MenuKeempat()  
+                        break 
                     elif Yes_no == 'N':
                         print('******DATA TIDAK DIHAPUS******')               
-                        return MenuKeempat()                  
+                        break               
         elif inputMenu =='2':
-            return menuUtama()
+            break
 
 def menuUtama ():
     while (True):
@@ -168,11 +173,8 @@ Masukkan angka dari list diatas :''')
         elif inputMenuUtama=='4':
             MenuKeempat()
         elif inputMenuUtama=='5':
-            try:
-                loop.close()
-            except:
-                print('Terimakasih menggunakan layanan kami, Sampai Jumpa')
-                break
+            print('Terimakasih menggunakan layanan kami, Sampai Jumpa')
+            break
         else:
             print('\n******SILAHKAN MASUKKAN ANGKA YANG BENAR******')
 
